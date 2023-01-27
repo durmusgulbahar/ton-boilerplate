@@ -5,14 +5,19 @@ import {MineMessageParams, Queries} from "./src/giver/NftGiver.data";
 import {toNano} from "ton"
 const qrcode = require('qrcode-terminal');
 
+require('dotenv').config()
+
+const {WALLET_ADDRESS, API_KEY} = process.env;
+
+
 async function main () {
 
-  const wallet = Address.parse('kQA9dHPIW2s0mRWtGYplTdKJ_eEsu8JNM0EFvR5o0nXb5fym');
+  const wallet = Address.parse(WALLET_ADDRESS!);
   const collection = Address.parse('EQDk8N7xM5D669LC2YACrseBJtDyFqwtSPCNhRWXU7kjEptX');
 
   const client = new TonClient({
     endpoint: 'https://testnet.toncenter.com/api/v2/jsonRPC',
-    apiKey: 'a1a670ccbe17af6b947fc1358d9b7747a008b7198bbd96ce88735f3f6e8f7a5a',
+    apiKey: API_KEY,
   })
 
   const miningData = await client.callGetMethod(collection, 'get_mining_data')
